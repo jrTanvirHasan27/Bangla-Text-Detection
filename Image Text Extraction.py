@@ -4,11 +4,9 @@ import cv2
 import pytesseract
 from PIL import Image, ImageDraw, ImageFont
 
-
 pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-img = cv2.imread('1.png')
+img = cv2.imread('9.png')
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-print(pytesseract.image_to_string(img, lang='ben'))
 
 ##  Detecting Characters
 # print(pytesseract.image_to_boxes(img, lang='ben'))
@@ -23,11 +21,11 @@ print(pytesseract.image_to_string(img, lang='ben'))
 #   cv2.putText(img, b[0], (x, hImg-y+30), cv2.FONT_HERSHEY_COMPLEX, 1, (50,50,255), 1)
 
 
-##  Detecting Words
-# print(pytesseract.image_to_boxes(img, lang='ben'))
 
 hImg, wImg, _ = img.shape
 boxes = pytesseract.image_to_data(img, lang='ben')
+print(pytesseract.image_to_string(img, lang='ben'))
+
 for x, b in enumerate(boxes.splitlines()):
     if x != 0:
         b = b.split()
@@ -41,14 +39,14 @@ for x, b in enumerate(boxes.splitlines()):
             font = ImageFont.truetype(fontpath, 14)
             img_pil = Image.fromarray(img)
             draw = ImageDraw.Draw(img_pil)
-            draw.text((x, y + 30), b[11], font=font, fill=(0, 0, 255))
+            draw.text((x, y + 40), b[11], font=font, fill=(0, 0, 255))
             img = np.array(img_pil)
             # cv2.putText(img, b[11], (x, y), cv2.FONT_HERSHEY_COMPLEX, 0.7, (50, 50, 255))
 
 test_img_path = "/Users/jrtan/PycharmProjects/Bangla Text Detection"
 create_path = lambda f : os.path.join(test_img_path, f)
 
-image_path = "1.png"
+image_path = "9.png"
 path = create_path(image_path)
 file_save_path = "/Users/jrtan/PycharmProjects/Bangla Text Detection/Pdf"
 
